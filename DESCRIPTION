@@ -1,12 +1,14 @@
 Package: humidity
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Type: Package
+Title: Humidity Dataset
+Date: 2022-03-15
+Version: 0.1.0.9000
+Authors@R: person("Donnie", "Minnick", , "donnie.minnick@gmail.com", c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
+URL: https://github.com/dtminnick/humidity
+BugReports: https://github.com/dtminnick/humidity/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
@@ -15,3 +17,7 @@ Imports:
 Depends: 
     R (>= 2.10)
 LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
