@@ -1,13 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# humidity Dataset
+# humidity
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-One Paragraph about data description goes here. You can also state why
-this data was collected.
+This package provides code used to collect relative humidity, barometric
+pressure, ambient temperature and other data using a BME280 temperauture
+sensor connected to a Raspberry Pi.
+
+The dataset includes time series data tracking changes in relative
+humidity and related measures at regular intervals.
 
 ## Installation
 
@@ -21,9 +25,12 @@ devtools::install_github("dtminnick/humidity")
 
 ## Data Collection Methodology
 
-This description gives a detailed process on how the data was collected.
-It should describe the conditions under which the data was recorded and
-also the devices used to record the data.
+Sensor data is captured at scheduled intervals and written to a flat,
+delimited text file on a Raspberry Pi. The text file is downloaded from
+the Pi using an SSH connection.
+
+For more detailed documentation on the end-to-end data collection,
+please refer to …
 
 ## Description of the Data
 

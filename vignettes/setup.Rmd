@@ -1,5 +1,5 @@
 ---
-title: "Humidity Project Setup"
+title: "humidity Project Setup"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Humidity Project Setup}
@@ -14,6 +14,60 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(humidity)
-```
+## Hardware
+
+The followed hardware components enabled collection of humidity data:
+
+1. Raspberry Pi Zero W with 512 MB RAM, 1 GHz CPU, single core, 802.11 wireless 
+LAN, 2.5a power supply, case and 40-pin GPIO header,
+
+2. Waveshare BME280 environmental sensor with I2C/SPI interface and six-pin jumper
+wires, and
+
+3. 128 GB micro SD card.
+
+## Raspberry Pi Setup
+
+Headless setup of the Raspberry Pi involved the following steps:
+
+1. Insert the micro SD card in computer.
+
+2. Install and run the Raspberry Pi Imager (available for download from raspberrypi.com).
+
+3. Launch the imager application and install the Raspberry Pi OS on the micro SD card.
+
+4. Write an empty text file named "ssh" with no file extension to the root of 
+the directory of the card. When the Raspberry Pi OS sees the ssh file on its first 
+boot-up, it will automatically enable SSH (Secure Socket Shell), which will allow 
+you to remotely access the Pi command line from your computer.
+
+5. Configure a network connection for your Raspberry Pi using Wi-Fi Ethernet. Create 
+a text file called wpa_supplicant.conf and place it in the root directory of the 
+micro SD card with the following text included in the file.
+
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+scan_ssid=1
+ssid="your_wifi_ssid"
+psk="your_wifi_password"
+}
+
+6. Establish an SSH connection to the Raspberry Pi using an SSH client.  In my case,
+I used Putty, an SSH client for Windows using "raspberrypi" as the address and "pi"
+as a username with a corresponding password.  This enables you to connect to the Raspberry 
+Pi at the command prompt.
+
+7. If you want to access the Raspberry Pi via a GUI, you need to enable VNC on the 
+Raspberry Pi.
+
+## GPIO Board
+
+## BME280 Sensor Connection
+
+## BME280 Readings
+
+## Crontab
+
