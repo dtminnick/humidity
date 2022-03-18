@@ -28,7 +28,12 @@ wires, and
 
 ## Raspberry Pi Setup
 
-Headless setup of the Raspberry Pi involved the following steps:
+Headless setup of the Raspberry Pi involves the following steps.  A headless setup 
+is the Raspberry Pi minus a monitor, keyboard, and mouse.  Running a headless setup 
+enables direct control the Raspberry Pi wirelessly from another computer, in this
+case, my Windows laptop.
+
+[This article](https://www.tomshardware.com/reviews/raspberry-pi-headless-setup-how-to,6028.html) provides detailed setup instructions.  
 
 1. Insert the micro SD card in computer.
 
@@ -63,11 +68,41 @@ Pi at the command prompt.
 7. If you want to access the Raspberry Pi via a GUI, you need to enable VNC on the 
 Raspberry Pi.
 
-## GPIO Board
+## GPIO Header
+
+To connect the BME280 sensor to the Raspberry Pi, you need to mount the Raspberry Pi
+on the GPIO 40-pin header and solder the header in place.  When soldering the header 
+to the Pi start with one of the corner pins. To make a good connection, heat 
+the header pin and to let it melt the solder.  Don’t melt the solder directly with 
+the iron and expect it to stick.  [This article](https://dronebotworkshop.com/soldering-raspberry-pi-zero-gpio/) provides detail
+on how to go about soldering the GPIO to the Pi.
 
 ## BME280 Sensor Connection
 
+The Waveshare BME280 sensor supports both SPI and I2C interfaces and you'll need to decide what 
+interface you will use.  [This article](https://medium.com/@rjrajbir24/difference-between-i2c-and-spi-i2c-vs-spi-c6a68d7242c4)
+provides a good summary of each interface and comparison.
+
+[This webpage](https://www.waveshare.com/wiki/BME280_Environmental_Sensor) provides 
+details instructions on how to connect the BME280 sensor to the Pi's GPIO board, according
+to the interface you choose to use.
+
+Using the I2C interface, I wired the sensor as follows:
+
+Connection | GPIO Pin | GPIO Description | BME280 Pin | BME280 Description 
+-----------|----------|------------------|------------|-------------------
+Power Input | 1 | 3.3v power | 1 | VCC
+I2C data line | 3 | GPIO (SDA) | 3 | SDA
+I2C clock line | 5 | GPIO (SCL) | 4 | SCL
+Ground | 14 | GND | 2 | GND
+
+After connecting the sensor, I enabled the I2C interface on the Pi, rebooted the Pi
+and confirmed that the I2C module was enabled.  I then checked to make sure that the
+sensor was connected to the Pi at correct address (0x77 by default).
+
 ## BME280 Readings
+
+
 
 ## Crontab
 
