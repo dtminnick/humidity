@@ -6,7 +6,7 @@ source("./R/find_peaks.R")
 # Connect remotely to pi using an ssh connection.
 # Keyring package used to securely obtain credentials for host login.
 
-session <- ssh::ssh_connect(host = "pi@10.0.0.54",
+session <- ssh::ssh_connect(host = "pi@10.0.0.43",
                             passwd = keyring::key_get("pi", "pi@10.0.0.43"),
                             verbose = FALSE)
 
