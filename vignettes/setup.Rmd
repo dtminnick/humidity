@@ -102,7 +102,33 @@ sensor was connected to the Pi at correct address (0x77 by default).
 
 ## BME280 Readings
 
+Sensor readings are collected via a Python script written using the RPi.bme280 library.
+The script collects a single sensor reading and writes the reading to a text file
+stored on the Raspberry Pi.
 
+The reading captures the following data from the sensor:
+
+*Unique reading id,
+*Date and time of the reading,
+*Temperature,
+*Barometric Pressure, and 
+*Humidity.
+
+More details on the RPi.bme280 project can be found [here](https://pypi.org/project/RPi.bme280/).
+Note that this library was written to interface with the Bosch BME280 digital sensor module,
+however, it does work with the Waveshare sensor as well, based on my success using it for 
+this project.
 
 ## Crontab
 
+Crontab is used for configuring scheduled tasks on the Raspberry Pi.  Cron is the name
+of the tool, and crontab is the cron table listing the jobs that Cron executes.  To collect
+a series of readings, I added a crontab entry to execute the Python script every 60 seconds.
+At this rate, the script collects 1,440 observations per day.
+
+## Data Transfer from the Pi
+
+I use the SSH R library to connect to the Pi remotely and transfer the text file containing 
+the sensor readings, and then perform a series of transformations on the data
+before saving the data in a local Rda file.  I periodically run the script to refresh the
+local Rda file.
