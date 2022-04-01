@@ -2,7 +2,7 @@
 #' Find Peaks
 #'
 #' \code{find_peaks} detects local peaks in values in a vector or data frame
-#' using a threshold for comparing each value to adjacent values and returns a
+#' using a threshold for comparing each value to adjacent values.  It returns a
 #' numeric vector containing the indices of those peak values.
 #'
 #' @details A peak value is defined as a maximum value with a set of values
