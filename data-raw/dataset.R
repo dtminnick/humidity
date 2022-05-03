@@ -57,9 +57,15 @@ readings <- source %>%
                       room = dplyr::case_when(date_time > "2021-07-27 10:00:00" & date_time < "2021-09-24 22:28:02" ~ "UB",
                                               date_time > "2022-03-12 18:05:00" ~ "UH"),
                       peak_rh = ifelse(dplyr::row_number() %in% find_peaks(relative_humidity, m = 30), TRUE, FALSE),
-                      interval = round(as.numeric(date_time - lag(date_time), units = 'mins'), 5)) %>%
+                      interval = round(as.numeric(date_time - lag(date_time), units = 'mins'), 5),
+                      month_of_year = lubridate::month(date_time),
+                      day_of_week = lubridate::wday(date_time, label = FALSE),
+                      hour_of_day = lubridate::hour(date_time)) %>%
         dplyr::select(reading_id,
                       date_time,
+                      month_of_year,
+                      day_of_week,
+                      hour_of_day,
                       interval,
                       degrees_celcius,
                       degrees_fahrenheit,
