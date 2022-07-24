@@ -13,6 +13,12 @@
 #' for a reading.}
 #'
 #' \item{\code{date_time}}{The date and time of a sensor reading.}
+#' 
+#' \item{\code{month_of_year}}{The month of year derived from the date_time column.}
+#' 
+#' \item{\code{day_of_week}}{The day of week derived from the date_time column.}
+#' 
+#' \item{\code{hour_of_day}}{The hour of day derived from the date_time column.}
 #'
 #' \item{\code{interval}}{The time difference between a sensor reading and the
 #' prior sensor reading, expressed in minutes.  Note that sensor
