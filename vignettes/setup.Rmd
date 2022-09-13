@@ -97,8 +97,13 @@ I2C clock line | 5 | GPIO (SCL) | 4 | SCL
 Ground | 14 | GND | 2 | GND
 
 After connecting the sensor, I enabled the I2C interface on the Pi, rebooted the Pi
-and confirmed that the I2C module was enabled.  I then checked to make sure that the
-sensor was connected to the Pi at correct address (0x77 by default).
+and confirmed that the I2C module was enabled.  Using a VNC Viewer, you can access
+the Pi's configuration menu and enable the IC2 interface from within that menu.
+
+I then checked to make sure that the sensor was connected to the Pi at correct address (0x77 by default) by using the command line prompt (logged into Pi via Putty) and command i2cdetect -y 1.
+
+[This article](https://learn.adafruit.com/scanning-i2c-addresses/raspberry-pi) explains
+how to scan and detect I2C addresses.
 
 ## BME280 Readings
 
