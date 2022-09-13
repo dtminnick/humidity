@@ -24,7 +24,7 @@ ssh::ssh_disconnect(session)
 
 # Read source data.
 
-source <- read.csv("./inst/extdata/bme280/bme280_readings.txt",
+source <- read.csv("./inst/extdata/bme280/pi1_bme280_readings.txt",
                    header = FALSE,
                    sep = ",",
                    stringsAsFactors = FALSE,
