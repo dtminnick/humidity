@@ -7,47 +7,59 @@
 <!-- badges: end -->
 
 This package provides code used to collect relative humidity, barometric
-pressure, ambient temperature and other data using a BME280 temperauture
+pressure, ambient temperature and other data using a BME280 temperature
 sensor connected to a Raspberry Pi.
 
 The dataset includes time series data tracking changes in relative
 humidity and related measures at regular intervals.
 
+## Inspiration
+
+I’ve spent time over the past several years using R to hone my data
+analysis skills. My ‘to do’ list included completing a project to
+generate my own source data, and I thought I could gain a wealth of
+knowledge by building a hardware and software solution to track relative
+humidity in my home.
+
+I completed the initial project and started capturing sensor readings
+from a single Raspberry Pi in July 2021. In September 2022, I added a
+second device so I could capture readings from two floors in my house
+simultaneously. My future plans include adding two additional devices so
+I have one on each floor of my house and one outside.
+
 ## Installation
 
-You can install the development version of humidity from
-[GitHub](https://github.com/) with:
+You can install the development version of the humidity project from
+[GitHub](https://github.com/) with the following command in R:
 
 ``` r
-# install.packages("devtools")
 devtools::install_github("dtminnick/humidity")
 ```
 
 ## Data Collection Methodology
 
 Sensor data is captured at scheduled intervals and written to a flat,
-delimited text file on a Raspberry Pi. The text file is downloaded from
-the Pi using an SSH connection.
+delimited text file on remote Raspberry Pi devices. I download text
+files from the devices using an SSH connection.
 
 For more detailed documentation on the end-to-end data collection,
 please refer to …
 
 ## Description of the Data
 
-Here you can descibe how the data is organized in this whole dataset.
-How the data is stored in all the files. You also have to brief about
-the naming convention of the files in different directories.
+Describe how the data is organized in the ‘readings’ dataset.
 
 ## File Format
 
-If the data includes images or audio, you can mention the file format
-eg.(.svg, .png, .mpeg).
+## Project Setup
+
+For a detailed description of the process I followed to setup this
+project, refer to the [setup vignette](setup.html).
 
 ## Authors
 
-## License
+Donnie Minnick, <donnie.minnick@gmail.com>
 
-This project is licensed under the MIT License - see the LICENSE.md file
-for details.
+## License
 
 ## Example
