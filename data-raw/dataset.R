@@ -4,6 +4,9 @@ library("magrittr")
 source("./R/find_peaks.R")
 source("./R/download_source_files.R")
 
+# Connect to remote devices using SSH connection; save source files to 
+# local project.
+
 download_source_files(host_name = "pi@10.0.0.43", 
                       device_name = "pi", 
                       user_name = "pi@10.0.0.43", 
@@ -86,4 +89,3 @@ readings <- readings %>%
 # Save data.
 
 usethis::use_data(readings, overwrite = TRUE)
-
