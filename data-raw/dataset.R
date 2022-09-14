@@ -2,44 +2,51 @@
 library("magrittr")
 
 source("./R/find_peaks.R")
+source("./R/download_source_files.R")
 
-# Connect remotely to pi using an ssh connection.
-# Keyring package used to securely obtain credentials for host login.
+download_source_files(host_name = "pi@10.0.0.43", 
+                      device_name = "pi", 
+                      user_name = "pi@10.0.0.43", 
+                      source_path = "/home/pi/Desktop/bme280/data", 
+                      destination_path = "./inst/extdata")
 
-session <- ssh::ssh_connect(host = "pi@10.0.0.43",
-                            passwd = keyring::key_get("pi", "pi@10.0.0.43"),
-                            verbose = FALSE)
+download_source_files(host_name = "pi@10.0.0.220", 
+                      device_name = "PI2", 
+                      user_name = "pi@10.0.0.220", 
+                      source_path = "/home/pi/Desktop/bme280/data", 
+                      destination_path = "./inst/extdata")
 
-# Use scp protocol to download files from the host via the specified
-# directories.
+# Read source data and combine into single dataset; add device name to dataset.
 
-ssh::scp_download(session,
-                  files = "/home/pi/Desktop/bme280",
-                  to = "./inst/extdata",
-                  verbose = TRUE)
+files <- list.files("./inst/extdata/data", full.names = TRUE)
 
-# Disconnect from ssh connection.
+readings <- data.frame()
 
-ssh::ssh_disconnect(session)
+for(f in 1:length(files)) {
+    
+        source <- read.csv(files[f],
+                           header = FALSE,
+                           sep = ",",
+                           stringsAsFactors = FALSE,
+                           na.strings = c(""),
+                           skipNul = TRUE)
 
-# Read source data.
-
-source <- read.csv("./inst/extdata/bme280/pi1_bme280_readings.txt",
-                   header = FALSE,
-                   sep = ",",
-                   stringsAsFactors = FALSE,
-                   na.strings = c(""),
-                   skipNul = TRUE)
+        source <- cbind(source, f)
+                
+        readings <- rbind(readings, source)
+    
+}
 
 # Clean and transform source data.
 
-readings <- source %>%
+readings <- readings %>%
         dplyr::select(-V6) %>%
         dplyr::rename(reading_id = V1,
                       date = V2,
                       degrees_celcius = V3,
                       barometric_pressure = V4,
-                      relative_humidity = V5) %>%
+                      relative_humidity = V5,
+                      device_id = f) %>%
         dplyr::mutate(degrees_fahrenheit = round(degrees_celcius * 9 / 5 + 32, 2),
                       degrees_celcius = round(degrees_celcius, 2),
                       barometric_pressure = round(barometric_pressure, 2),
@@ -61,7 +68,8 @@ readings <- source %>%
                       month_of_year = lubridate::month(date_time),
                       day_of_week = lubridate::wday(date_time, label = FALSE),
                       hour_of_day = lubridate::hour(date_time)) %>%
-        dplyr::select(reading_id,
+        dplyr::select(device_id,
+                      reading_id,
                       date_time,
                       month_of_year,
                       day_of_week,
