@@ -89,3 +89,7 @@ readings <- readings %>%
 # Save data.
 
 usethis::use_data(readings, overwrite = TRUE)
+
+# Clear memory.
+
+rm(source, f, files, download_source_files, find_peaks)
