@@ -14,37 +14,39 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Hardware
+This vignette describes the hardware components I used for this project and the
+setup and configurations needed to collect sensor readings.  Where available, I 
+provided links to articles that describe steps with detailed instructions.
 
-The followed hardware components enabled collection of humidity data:
+## Hardware Components
+
+The following hardware components enabled collection of humidity data:
 
 1. Raspberry Pi Zero W with 512 MB RAM, 1 GHz CPU, single core, 802.11 wireless 
 LAN, 2.5a power supply, case and 40-pin GPIO header,
-
-2. Waveshare BME280 environmental sensor with I2C/SPI interface and six-pin jumper
-wires, and
-
-3. 128 GB micro SD card.
+2. Waveshare BME280 environmental sensor with I2C/SPI interface,
+3. A set of six-pin jumper wires, and
+4. 128 GB micro SD card.
 
 ## Raspberry Pi Setup
 
 Headless setup of the Raspberry Pi involves the following steps.  A headless setup 
 is the Raspberry Pi minus a monitor, keyboard, and mouse.  Running a headless setup 
-enables direct control the Raspberry Pi wirelessly from another computer, in this
-case, my Windows laptop.
+enables direct control the Raspberry Pi from computer via wifi connection.
 
 [This article](https://www.tomshardware.com/reviews/raspberry-pi-headless-setup-how-to,6028.html) provides detailed setup instructions.  
 
-1. Insert the micro SD card in computer.
+1. Insert the micro SD card in computer.  Note you may need a card reader with USB connection if your
+computer does not have a built-in reader.
 
 2. Install and run the Raspberry Pi Imager (available for download from raspberrypi.com).
 
 3. Launch the imager application and install the Raspberry Pi OS on the micro SD card.
 
-4. Write an empty text file named "ssh" with no file extension to the root of 
-the directory of the card. When the Raspberry Pi OS sees the ssh file on its first 
-boot-up, it will automatically enable SSH (Secure Socket Shell), which will allow 
-you to remotely access the Pi command line from your computer.
+4. Write an empty text file named "ssh" with no file extension to the root directory. 
+When the Raspberry Pi OS sees the ssh file on its first boot-up, it will automatically 
+enable SSH (Secure Socket Shell), which will allow you to remotely access the Pi 
+command line from your computer.
 
 5. Configure a network connection for your Raspberry Pi using Wi-Fi Ethernet. Create 
 a text file called wpa_supplicant.conf and place it in the root directory of the 
@@ -68,7 +70,7 @@ Pi at the command prompt.
 7. If you want to access the Raspberry Pi via a GUI, you need to enable VNC on the 
 Raspberry Pi.
 
-## GPIO Header
+## GPIO Header Installation
 
 To connect the BME280 sensor to the Raspberry Pi, you need to mount the Raspberry Pi
 on the GPIO 40-pin header and solder the header in place.  When soldering the header 
@@ -105,7 +107,7 @@ I then checked to make sure that the sensor was connected to the Pi at correct a
 [This article](https://learn.adafruit.com/scanning-i2c-addresses/raspberry-pi) explains
 how to scan and detect I2C addresses.
 
-## BME280 Readings
+## Collecting BME280 Readings
 
 Sensor readings are collected via a Python script written using the RPi.bme280 library.
 The script collects a single sensor reading and writes the reading to a text file
@@ -113,18 +115,18 @@ stored on the Raspberry Pi.
 
 The reading captures the following data from the sensor:
 
-*Unique reading id,
-*Date and time of the reading,
-*Temperature,
-*Barometric Pressure, and 
-*Humidity.
+* Unique reading id,
+* Date and time of the reading,
+* Temperature,
+* Barometric Pressure, and 
+* Humidity.
 
 More details on the RPi.bme280 project can be found [here](https://pypi.org/project/RPi.bme280/).
 Note that this library was written to interface with the Bosch BME280 digital sensor module,
 however, it does work with the Waveshare sensor as well, based on my success using it for 
 this project.
 
-## Crontab
+## Reading Schedule
 
 Crontab is used for configuring scheduled tasks on the Raspberry Pi.  Cron is the name
 of the tool, and crontab is the cron table listing the jobs that Cron executes.  To collect
@@ -135,5 +137,5 @@ At this rate, the script collects 1,440 observations per day.
 
 I use the SSH R library to connect to the Pi remotely and transfer the text file containing 
 the sensor readings, and then perform a series of transformations on the data
-before saving the data in a local Rda file.  I periodically run the script to refresh the
+before saving the data in a local Rda file.  I periodically run the R script to refresh the
 local Rda file.
