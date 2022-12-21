@@ -4,14 +4,20 @@
 #' \code{download_source_files} uses an ssh connection to connect to and download
 #' source files from a remote device on a wifi network.
 #'
-#' @details ...
+#' @details ... add notes on use of keyring package and Windows Credentials to securely
+#' pass a password to this function.
+#' 
 #' The \code{download_source_files} uses functions in the `ssh` R library.
 #'
 #' @param host_name Character, an ssh server string in the format `[user@]hostname[:port]`.
+#' 
+#' @param use_keyring Boolean, if TRUE, ....
 #'
 #' @param device_name Character, the name of the remote device.
 #' 
 #' @param user_name Character, the name of the user accessing the device.
+#' 
+#' @param password Character, if not using a keyring ...
 #' 
 #' @param source_path Character, the file path to the source files to download.
 #' 

@@ -19,6 +19,12 @@ download_source_files(host_name = "pi@10.0.0.220",
                       source_path = "/home/pi/Desktop/bme280/data", 
                       destination_path = "./inst/extdata")
 
+download_source_files(host_name = "pi3@10.0.0.155",
+                      device_name = "pi3@10.0.0.155",
+                      user_name = "raspberryPI3",
+                      source_path = "/home/pi3/Desktop/bme280/data",
+                      destination_path = "./inst/extdata")
+
 # Read source data and combine into single dataset; add device name to dataset.
 
 files <- list.files("./inst/extdata/data", full.names = TRUE)
@@ -84,7 +90,8 @@ readings <- readings %>%
                       relative_humidity,
                       state,
                       room,
-                      peak_rh)
+                      peak_rh) %>%
+        dplyr::arrange(date_time, device_id)
 
 # Save data.
 
